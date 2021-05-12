@@ -4,17 +4,20 @@
 
 import random
 import string
+import sys
 
 CONST_TARGET = list("METHINKS IT IS LIKE A WEASEL")  # String alvo
+TARGET_LEN = len(CONST_TARGET)
 SIZE = range(100) #Numero de vezes que a string vai ser gerada
 PROB = 0.05 #Porcentagem de probabilidade de mutação
 LETTERS = string.ascii_uppercase + ' '
 
 highestScoreStr = []
 
+
 def generateRandomString():
     evoStr = []
-    for _ in range(0, len(CONST_TARGET)):
+    for _ in range(TARGET_LEN):
         evoStr.append(random.choice(LETTERS))
     return evoStr
 
@@ -25,31 +28,31 @@ def mutate(evoStr):
 def comparison(evoStr):
     score = 0
     if len(evoStr) != 0:
-        for i in range (0, len(CONST_TARGET)):
+        for i in range (TARGET_LEN):
             if CONST_TARGET[i] == evoStr[i]:
                 score += 1
                 
     return score
 
-def reproduce(evoStr, tries):
+def reproduce(evoStr):
     global highestScoreStr
     for _ in SIZE:
         evoStrCopy = mutate(evoStr)
         score = comparison(evoStrCopy)
         if score > comparison(highestScoreStr):
             highestScoreStr = evoStrCopy
-        tries += 1
-        print(f"Tentativa {tries}: {''.join(highestScoreStr)} -- Score: {score}")
-    return highestScoreStr, tries
+        
+    return highestScoreStr, comparison(highestScoreStr)
 
 def main():
-    tries = 0
-    print("Made by Karla Felix")
+    tries, score = 0, 0
     evolutionString = generateRandomString()
     while evolutionString != CONST_TARGET:
-        evolutionString, tries = reproduce(evolutionString, tries)
-        print(f"Evolution String == {''.join(evolutionString)} tentativa {tries}")
+        tries += 1
+        evolutionString, score = reproduce(evolutionString)
+        print(f"Tentativa {tries}: {''.join(highestScoreStr)} -- Score: {score}")
+        #print(f"Evolution String == {''.join(evolutionString)} tentativa {tries}")
     else:
-        print(f"O algortimo de Weasel levou {tries} tentativas para conseguir o reproduzir a frase!")
+        print(f"O algortimo de Weasel levou {tries} gerações para conseguir o reproduzir a frase!")
 
 main()
