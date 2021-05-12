@@ -10,11 +10,11 @@ const char letters[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";//letras do alfabeto e espa
 #define MUTATION_PROB 5
 
 /* retorna um inteiro aleatorio */
-int irand(int n)
+int randomInt(int num)
 {
-    int r, rand_max = RAND_MAX - (RAND_MAX % n);
-    while ((r = rand()) >= rand_max);
-    return r / (rand_max / n);
+    int tgt, rand_max = RAND_MAX - (RAND_MAX % num);
+    while ((tgt = rand()) >= rand_max);
+    return tgt / (rand_max / num);
 }
 
 char *reproduce(char *evoStr)
@@ -30,13 +30,13 @@ char *reproduce(char *evoStr)
         //mutate
         for (int i = 0; i < TARGET_SIZE; i++)
         {
-            if (irand(100) <= MUTATION_PROB)
+            if (randomInt(100) <= MUTATION_PROB)//se entra na probabilidade de mutação
             {
-                evoStrCopy[i] = letters[irand(TARGET_SIZE)];
+                evoStrCopy[i] = letters[randomInt(TARGET_SIZE)];//trocando o caractere existente por um caractere aleatorio da strin letters
             }
         }
         score = comparison(evoStrCopy);
-        if (score > comparison(highestScore))
+        if (score > comparison(highestScore))//Comparando o score da tentativa atual com o melhor score
         {
             strncpy(highestScore, evoStrCopy, TARGET_SIZE);
         }
@@ -66,7 +66,7 @@ int main()
     /*Random String*/
     for (int i = 0; target[i]; i++)
     {
-        evolutionString[i] = letters[irand(TARGET_SIZE)];
+        evolutionString[i] = letters[randomInt(TARGET_SIZE)];
     }
     int cont = 0;
     do

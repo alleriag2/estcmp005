@@ -51,7 +51,6 @@ def main():
         tries += 1
         evolutionString, score = reproduce(evolutionString)
         print(f"Tentativa {tries}: {''.join(highestScoreStr)} -- Score: {score}")
-        #print(f"Evolution String == {''.join(evolutionString)} tentativa {tries}")
     else:
         print(f"O algortimo de Weasel levou {tries} gerações para conseguir o reproduzir a frase!")
 
