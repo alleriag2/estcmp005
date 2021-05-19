@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-main()
+int main()
 {
     int num1, num2, maior;
 
